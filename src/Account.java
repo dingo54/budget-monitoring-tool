@@ -39,14 +39,16 @@ public class Account {
 
     public void openNewAccount(String accountNameInput, String accountTypeInput, String startingBalanceInput) {
 
-        int numberOfAccounts = 0;
+        int lastAccountNumber = 1;
         for (String account : accountInfo.keySet()) {
-            numberOfAccounts++;
+            if (Integer.parseInt(account) >= lastAccountNumber) {
+                lastAccountNumber = Integer.parseInt(account) + 1;
+            }
         }
-        String accountNumber = Integer.toString(numberOfAccounts);
+        String accountNumber = Integer.toString(lastAccountNumber);
 
         BigDecimal balance = validateMoneyInput(startingBalanceInput);
-        String accountInfoString = Integer.toString(numberOfAccounts+1) + "|" + accountNameInput + "|"
+        String accountInfoString = Integer.toString(lastAccountNumber) + "|" + accountNameInput + "|"
                 + accountTypeInput + "|" + balance;
 
         accountInfo.put(accountNumber, accountInfoString);
@@ -66,6 +68,8 @@ public class Account {
         }
 
     }
+
+
 
 
     public BigDecimal validateMoneyInput(String input) {
