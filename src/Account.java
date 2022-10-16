@@ -37,6 +37,36 @@ public class Account {
 
     }
 
+
+    public void viewAccount() {
+
+        System.out.println("-- Cash Accounts --");
+
+        for ( Map.Entry<String, String> account : accountInfo.entrySet() ) {
+            String[] accountInfoString = account.getValue().split("\\|");
+
+            if (accountInfoString[2].equals("cash")) {
+                System.out.println(accountInfoString[0] + ". " +  accountInfoString[1] + " (" + accountInfoString[2] + ")");
+                System.out.println("    Amount: $" + accountInfoString[3] + "\n" );
+            }
+
+        }
+
+        System.out.println("-- Debt Accounts --");
+
+        for ( Map.Entry<String, String> account : accountInfo.entrySet() ) {
+            String[] accountInfoString = account.getValue().split("\\|");
+
+            if (accountInfoString[2].equals("debt")) {
+                System.out.println(accountInfoString[0] + ". " + accountInfoString[1] + " (" + accountInfoString[2] + ")");
+                System.out.println("   Amount: -$" + accountInfoString[3] + "\n");
+            }
+        }
+
+
+    }
+
+
     public void openNewAccount(String accountNameInput, String accountTypeInput, String startingBalanceInput) {
 
         int lastAccountNumber = 1;
@@ -68,6 +98,7 @@ public class Account {
         }
 
     }
+
 
     // ##########################################################################################
     // deleteAccount
