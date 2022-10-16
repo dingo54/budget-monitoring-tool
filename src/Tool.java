@@ -14,6 +14,8 @@ public class Tool {
 
         //fella.deleteAccount("10");
 
+        fella.updateAccount("9", "boomer", "debt", "500");
+
         fella.viewAccount();
 
 

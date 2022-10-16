@@ -37,6 +37,11 @@ public class Account {
 
     }
 
+    // ##########################################################################################
+    // viewAccount
+    // - Loops through all accounts twice
+    // - Prints all cash accounts first and debt accounts last
+    // ##########################################################################################
 
     public void viewAccount() {
 
@@ -49,7 +54,6 @@ public class Account {
                 System.out.println(accountInfoString[0] + ". " +  accountInfoString[1] + " (" + accountInfoString[2] + ")");
                 System.out.println("    Amount: $" + accountInfoString[3] + "\n" );
             }
-
         }
 
         System.out.println("-- Debt Accounts --");
@@ -100,8 +104,7 @@ public class Account {
     }
 
 
-    // ##########################################################################################
-    // deleteAccount
+    // ###############################  deleteAccount  ##########################################
     // - Checks if account number input exists
     // - Updates all maps containing info about the accounts
     // - Repopulates the .csv file containing info about the accounts
@@ -130,6 +133,40 @@ public class Account {
                 }
 
             }
+
+        }
+
+
+    // ##############################  updateAccount  ###########################################
+    // - Takes inputs for number, name, type, and balance of an account
+    // - if account exists, it will update all maps relating to account info and repopulate the .csv file
+    // ##########################################################################################
+
+        public void updateAccount(String accountNumber, String accountNameInput, String accountTypeInput, String accountBalanceInput) {
+
+        if(accountInfo.containsKey(accountNumber)) {
+
+            accountName.put(accountNumber, accountNameInput);
+            accountType.put(accountNumber, accountTypeInput);
+            accountBalance.put(accountNumber, validateMoneyInput(accountBalanceInput));
+
+            String newBalance = validateMoneyInput(accountBalanceInput).toString();
+            String accountInfoString = accountNumber + "|" + accountNameInput + "|" + accountTypeInput + "|" + newBalance;
+            accountInfo.put(accountNumber, accountInfoString);
+
+            try(FileWriter repopulateRecordsFile = new FileWriter(accountFile, false);
+                BufferedWriter updateRecords = new BufferedWriter(repopulateRecordsFile);
+                PrintWriter out = new PrintWriter(repopulateRecordsFile)) {
+
+                for (Map.Entry<String, String> accountInfo : accountInfo.entrySet()) {
+                    out.println(accountInfo.getValue());
+                }
+
+            } catch (IOException e) {
+                System.out.println("Error updating account");
+                e.printStackTrace();
+            }
+        }
 
         }
 
