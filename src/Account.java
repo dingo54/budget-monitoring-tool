@@ -69,6 +69,41 @@ public class Account {
 
     }
 
+    // ##########################################################################################
+    // deleteAccount
+    // - Checks if account number input exists
+    // - Updates all maps containing info about the accounts
+    // - Repopulates the .csv file containing info about the accounts
+    // ##########################################################################################
+
+    public void deleteAccount(String accountNumberInput) {
+            // Checks if account number exists
+            if (accountInfo.containsKey(accountNumberInput)) {
+                // Updates all maps
+                accountInfo.remove(accountNumberInput);
+                accountName.remove(accountNumberInput);
+                accountType.remove(accountNumberInput);
+                accountBalance.remove(accountNumberInput);
+                // Repopulates .csv file
+                try(FileWriter repopulateRecordsFile = new FileWriter(accountFile, false);
+                    BufferedWriter updateRecords = new BufferedWriter(repopulateRecordsFile);
+                    PrintWriter out = new PrintWriter(repopulateRecordsFile)) {
+
+                    for (Map.Entry<String, String> accountInfo : accountInfo.entrySet()) {
+                        out.println(accountInfo.getValue());
+                    }
+
+                } catch (IOException e) {
+                    System.out.println("Error deleting account");
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+
+
 
 
 

@@ -10,7 +10,9 @@ public class Tool {
         System.out.println("\n# Welcome to the budget tool #\n");
         System.out.println("What would you like to do?\n");
 
-        fella.openNewAccount("feller", "debit", "5");
+         fella.openNewAccount("feller", "debit", "5");
+
+        //fella.deleteAccount("10");
 
 
 
